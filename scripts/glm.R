@@ -12,26 +12,17 @@ library(visreg)
 
 #Read `titanic_long.csv` dataset.
 
-u <- url("http://www.amstat.org/publications/jse/datasets/titanic.dat.txt")
-titanic <- read.table(file = u)
-titanic <- read.table("datasets/titanic.txt")
-names(titanic) <- c("class", "age", "sex", "survived")
-titanic$class <- factor(titanic$class, labels = c("crew", "first", "second", "third"))
-titanic$age <- factor(titanic$age, labels = c("child", "adult"))
-titanic$sex <- factor(titanic$sex, labels = c("female", "male"))
-write.csv(titanic, file = "datasets/titanic_long.csv", row.names=FALSE, quote=FALSE)
-
 titanic <- read.csv("datasets/titanic_long.csv")
 head(titanic)
 
 ## Let's fit linear model:
 
 m5 <- lm(survived ~ class, data = titanic)
+def.par <- par()
 layout(matrix(1:4, nrow=2))
 plot(m5)
-par(def.par)
+par <- def.par
 ## Weird residuals!
-
 hist(resid(m5))
 
 #How many passengers travelled in each class?
@@ -41,7 +32,7 @@ tapply(titanic$survived, titanic$class, length)
 tapply(titanic$survived, titanic$class, sum)
 
 #What proportion survived in each class?
-as.numeric(tapply(titanic$survived, titanic$class, mean))
+tapply(titanic$survived, titanic$class, mean)
 
 #Alternativelly:
 titanic %>%
@@ -58,10 +49,10 @@ plot(factor(survived) ~ class, data = titanic)
 tit.glm <- glm(survived ~ class, data=titanic, family=binomial)
 summary(tit.glm)
 
-#These estimates are in logit scale!
+#These estimates are in logit scale! (coef)
 coef(tit.glm)
 
-#We need to back-transform**: apply *inverse logit*
+#We need to back-transform**: apply *inverse logit* (plogis)
 plogis(coef(tit.glm)[1])
 
 #Looking at the data, the proportion of crew who survived is
@@ -90,14 +81,7 @@ plot(tit.glm)
 par(def.par)
 #Not very useful.
 
-
-## Binned residual plots for logistic regression
-
-predvals <- predict(tit.glm, type="response")
-arm::binnedplot(predvals, titanic$survived - predvals)
-
 ## Residual diagnostics with DHARMa
-
 simulateResiduals(tit.glm, plot = TRUE)
 
 #See https://cran.r-project.org/web/packages/DHARMa/vignettes/DHARMa.html
