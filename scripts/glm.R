@@ -18,7 +18,6 @@ head(titanic)
 ## Let's fit linear model:
 
 m5 <- lm(survived ~ class, data = titanic)
-def.par <- par()
 layout(matrix(1:4, nrow=2))
 plot(m5)
 par <- def.par
