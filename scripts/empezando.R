@@ -2,7 +2,7 @@
 # esto es un comentario
 ## Rstudio projects
 
-## R as calculator
+## R as calculator (+, log, sqrt)
 
 
 
@@ -24,7 +24,7 @@
 ## Calling functions (sum, mean, log)
 
 
-## Getting help: ?, ??, google, stackoverflow, Rdocumentation, Rseek, cheatsheets
+## Getting help: F1, ?, ??, google, stackoverflow, Rdocumentation, Rseek, cheatsheets
 
 
 ## Reading in data
