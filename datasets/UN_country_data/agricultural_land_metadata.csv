@@ -1,0 +1,4 @@
+variable;dimensions;meaning
+agricultural_area_2013;km²;total area dedicated to agriculture in 2013
+agricultural_area_change_ 1990;%;percentage of change in agricultural area between 1990 and 2013
+perc_agricultural_use_2013;%;percentage of area dedicated to agriculture in 2013
