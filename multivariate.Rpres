@@ -1,7 +1,7 @@
 multivariate analysis
 ========================================================
 author: I. Bartomeus
-date: March 2018
+date: January 2019
 autosize: true
 
 PCA
@@ -27,12 +27,6 @@ NMDS
 NMDS
 ========================================================
 
-![2d](https://jslefche.files.wordpress.com/2012/10/axis2.png)
-
-
-NMDS
-========================================================
-
 ![3d](https://jslefche.files.wordpress.com/2012/10/axis3.png)
 
 
@@ -47,4 +41,3 @@ Resources
 
 - Super complete guide on multivariate analysis: https://sites.google.com/site/mb3gustame/
 
--
