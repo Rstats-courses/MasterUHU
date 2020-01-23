@@ -1,0 +1,76 @@
+---
+title: "ejemplo de RMarkdown"
+author: "master UHU"
+date: "1/23/2020"
+output: html_document
+bibliography: example.bib
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Introducción
+
+Los archivos .rmd (acronimo de RMarkDown) combinan texto y análisis estadísticos en un solo archivo. Este tipo de archivos se puede trabajar con Rstudio, y permiten generar documentos en formato .pdf, .doc, .html, etc.
+El texto escrito en los archivos .rmd admite ciertas operaciones básicas, con una sintaxis muy sencilla. Por ejemplo, se pueden crear
+* listas
+* no numeradas
+y también
+1. listas
+2. numeradas
+
+### Hay varios
+#### niveles de
+##### encabezado
+
+y el texto se puede **enfatizar** o *poner en cursiva* (una guía rápida con las posibilidades de formato se puede encontrar en [este enlace](https://rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf)). También es posible integrar ecuaciones $\alpha = \frac{\delta}{x^2}$ (con la sintaxis de LaTex) y crear referencias automáticamente usando archivos .bib (e.g. @Abrams1987).
+
+La parte más interesante es, sin embargo, la inclusión de código de R que se ejecuta cada vez que se genera el archivo. En el archivo .rmd, el código de R aparece en bloques (chunks) delimitados por los caracteres ```. En el archivo de salida, se diferencia por un fondo de color. Por ejemplo:
+
+```{r}
+new.variable <- c(1.2,3,6,34)
+mean(new.variable)
+```
+
+El código puede escribirse en el archivo de salida u ocultarse, y mostrar sólo la salida de las operaciones internas. Esta salida también se verá diferenciada del texto escrito:
+
+```{r echo=FALSE}
+new.variable <- c(1.2,3,6,34)
+mean(new.variable)
+```
+
+Si el código oculto no tiene output, no aparecerá de ninguna manera en el archivo de salida. Esto es útil, por ejemplo, cuando se necesitan leer datos o hacer operaciones internas que no nos interesa mostrar en el documento final.
+
+```{r echo=FALSE}
+datos.ejemplo <- read.csv2("./materiales/datasets/agricultural_land.csv",header = TRUE)
+```
+
+Por supuesto, igual que Rmarkdown permite mostrar el resultado de cualquier función u operación, también es posible incluir gráficos generados en R:
+
+```{r echo=FALSE}
+mis.paises <- c("Australia","Chile","Angola")
+datos.filtrados <- subset(datos.ejemplo,country %in% mis.paises)
+names(datos.filtrados) <- c("country","agric_area_2013","agric_change_1990","agric_proportion_2013")
+library(ggplot2)
+ggplot(datos.filtrados,aes(x = agric_change_1990, y = agric_proportion_2013, label = country))+
+  geom_point(size = 2, color = "darkred")+
+  geom_text(vjust = 0, nudge_y = 0.1)+
+  NULL
+```
+
+y tablas ya formateadas:
+
+```{r echo=FALSE }
+n <- 100
+x <- rnorm(n)
+y <- 2*x + rnorm(n)
+out <- lm(y ~ x)
+library(knitr)
+kable(summary(out)$coef, digits=2)
+```
+
+**ejercicio:** generar un informe en pdf con una o varias de las preguntas del apartado anterior.
+
+## Referencias
+
